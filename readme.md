@@ -1,4 +1,4 @@
-Minimalistic version of Baron without accordeon headers support.
+Minimalistic version of <a href="https://github.com/Diokuz/baron">Baron</a> without accordeon headers support.
 
 Features:
 
