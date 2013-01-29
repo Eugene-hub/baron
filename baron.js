@@ -12,9 +12,7 @@
 
     // gData - user defined data, not changed during baron work
     baron.init = function(root, gData) {
-        var headers,
-            viewPortHeight, // Non-headers viewable content summary height
-            headerTops, // Initial top positions of headers
+        var viewPortHeight, // viewable content summary height
             topHeights,
             rTimer,
             selector,
@@ -24,11 +22,8 @@
             container,
             bar,
             barTop, // bar position
-            hFixCls, // CSS to be added on fixed headers
-            hFixFlag = [], // State of current header (top-fix, free, bottom-fix), change of state leads to dom manipulation
             drag,
-            scrollerY0,
-            i, j;
+            scrollerY0;
 
         // Switch on the bar by adding user-defined CSS classname
         function barOn(on) {
@@ -49,17 +44,6 @@
                 }
                 dom(bar).css({height: height + 'px'});
             }
-        }
-
-        // (un)Fix headers[i]
-        function fixHeader(i, top) {
-            if (viewPortHeight < gData.viewMinH || 0) { // No headers fixing when no enought space for viewport
-                top = undefined;
-            }
-            if (top !== undefined) {
-                top += 'px';
-            }
-            dom(headers[i]).css({top: top})[((top === undefined) ? 'remove' : 'add') + 'Class'](hFixCls);
         }
 
         // Relation of bar top position to container relative top position
@@ -90,35 +74,16 @@
         }
 
         // Viewport calculation
-        function viewport(h) {
-            headers = selector(gData.header, container);
+        function viewport() {
             viewPortHeight = scroller.clientHeight;
-            if (h) {
-                headerTops = [];
-            }
-            hFixFlag = [];
             topHeights = [];
-            if (headers) {
-                for (i = 0 ; i < headers.length ; i++) {
-                    // Summary headers height above current
-                    topHeights[i] = (topHeights[i - 1] || 0);
-                    if (headers[i - 1]) {
-                        topHeights[i] += headers[i - 1].offsetHeight;
-                    }
-                    // Between fixed headers
-                    viewPortHeight -= headers[i].offsetHeight;
-                    if (h) {
-                        headerTops[i] = headers[i].offsetTop; // No paddings for parentNode
-                    }
-                }
-            }
         }
 
         // Engines initialization
         var $ = window.jQuery;
         selector = gData.selector || $;
         if (!selector) {
-            // console.error('baron: no query selector engine found');
+            console.error('baron: no query selector engine found');
             return;
         }
         event = gData.event || function(elem, event, func, off) {
@@ -129,7 +94,7 @@
         }
         dom = gData.dom || $;
         if (!dom) {
-            // console.error('baron: no DOM utility engine founc');
+            console.error('baron: no DOM utility engine founc');
             return;
         }
 
@@ -140,7 +105,7 @@
 
         // DOM data
         if (!(scroller && container && bar)) {
-            // console.error('acbar: no scroller, container or bar dectected');
+            console.error('acbar: no scroller, container or bar dectected');
             return;
         }
 
@@ -149,24 +114,11 @@
         dom(scroller).css('width', scroller.parentNode.clientWidth + scroller.offsetWidth - scroller.clientWidth + 'px');
 
         // Viewport height calculation
-        viewport(1);
-
-        hFixCls = gData.hFixCls;
+        viewport();
 
         // Events initialization
         // onScroll
         event(scroller, 'scroll', updateScrollBar);
-
-        // onMouseWheel bubbling in webkit
-        event(headers, 'mousewheel', function(e) {
-            try {
-                i = document.createEvent('WheelEvent'); // i - for extra byte
-                // evt.initWebKitWheelEvent(deltaX, deltaY, window, screenX, screenY, clientX, clientY, ctrlKey, altKey, shiftKey, metaKey);
-                i.initWebKitWheelEvent(e.originalEvent.wheelDeltaX, e.originalEvent.wheelDeltaY);
-                scroller.dispatchEvent(i);
-                e.preventDefault();
-            } catch (e) {};
-        });
 
         // Resize
         event(window, 'resize', function() {
@@ -205,9 +157,7 @@
         // Total positions data update, container height dependences included
         function updateScrollBar() {
             var containerTop, // Container virtual top position
-                oldBarHeight, newBarHeight,
-                hTop,
-                fixState; 
+                oldBarHeight, newBarHeight;
 
             containerTop = -(scroller.pageYOffset || scroller.scrollTop);
             barTop = relToTop(- containerTop / (container.offsetHeight - scroller.clientHeight));
@@ -226,31 +176,8 @@
                 posBar(barTop);
             }
 
-            // Positioning headers
-            if (headers) {
-                for (i = 0 ; i < headers.length ; i++) {
-                    fixState = 0;
-                    if (headerTops[i] + containerTop < topHeights[i]) {
-                        // Header trying to go up
-                        fixState = 1;
-                        hTop = topHeights[i];
-                    } else if (headerTops[i] + containerTop > topHeights[i] + viewPortHeight) {
-                        // Header trying to go down
-                        fixState = 2;
-                        hTop = topHeights[i] + viewPortHeight;
-                    } else {
-                        // Header in viewport
-                        fixState = 3;
-                        hTop = undefined;
-                    }
-                    if (fixState !== hFixFlag[i]) {
-                        fixHeader(i, hTop);
-                        hFixFlag[i] = fixState;
-                    }
-                }
-            }
         }
-    }
+    };
 
     window.baron = baron;
 }();
