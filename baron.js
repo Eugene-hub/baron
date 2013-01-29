@@ -83,7 +83,7 @@
         var $ = window.jQuery;
         selector = gData.selector || $;
         if (!selector) {
-            console.error('baron: no query selector engine found');
+            //console.error('baron: no query selector engine found');
             return;
         }
         event = gData.event || function(elem, event, func, off) {
@@ -94,7 +94,7 @@
         }
         dom = gData.dom || $;
         if (!dom) {
-            console.error('baron: no DOM utility engine founc');
+            //console.error('baron: no DOM utility engine founc');
             return;
         }
 
@@ -105,7 +105,7 @@
 
         // DOM data
         if (!(scroller && container && bar)) {
-            console.error('acbar: no scroller, container or bar dectected');
+            //console.error('acbar: no scroller, container or bar dectected');
             return;
         }
 
