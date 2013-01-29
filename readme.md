@@ -1,13 +1,12 @@
-Baron - a small, fast and crossbrowser vertical custom scrollbar with native system scroll mechanic.
+Minimalistic version of Baron without accordeon headers support.
 
 Features:
 
-- Do not replaces native system scroll mechanic.
+- Does not replace native system scroll mechanic.
 - Customizable scrollbar design with full CSS support.
-- Fixable headers.
 - No strong dependences on jQuery.
 
-Baron just hides system scrollbar, but not removing it. This can guarantee scroll work on any system where CSS property 'overflow: scroll' realized.
+Baron just hides system scrollbar, but doesn't remove it. This can guarantee scroll work on any system where CSS property 'overflow: scroll' is supported.
 
 ##Simple usage
 
@@ -70,4 +69,4 @@ baron($('.wrapper'), {
 });
 ```
 
-There may be many wrappers on page, but only first scroller, container and scroller__bar on each wrapper will be initialized. Also, make sure you have either jQuery or custom DOM, events and selector engines.
+There can be many wrappers on page, but only first scroller, container and scroller__bar on each wrapper will be initialized. Also, make sure you have either jQuery or custom DOM, events and selector engines.
