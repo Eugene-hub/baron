@@ -28,9 +28,9 @@
         // Switch on the bar by adding user-defined CSS classname
         function barOn(on) {
             if (on) {
-                dom(bar).addClass(gData.barOnClass);
+                dom(bar).addClass(gData.barOnCls);
             } else {
-                dom(bar).removeClass(gData.barOnClass);
+                dom(bar).removeClass(gData.barOnCls);
             }
         }
 
