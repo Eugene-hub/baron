@@ -1,4 +1,6 @@
-Minimalistic version of <a href="https://github.com/Diokuz/baron">Baron</a> without accordeon headers support.
+Minimalistic version of <a href="https://github.com/Diokuz/baron">Baron</a> custom scroll without accordeon headers support.
+
+<a href="http://darkwebdev.github.com/baron/test/">Demo</a>
 
 Features:
 
@@ -70,3 +72,5 @@ baron($('.wrapper'), {
 ```
 
 There can be many wrappers on page, but only first scroller, container and scroller__bar on each wrapper will be initialized. Also, make sure you have either jQuery or custom DOM, events and selector engines.
+
+<a href="http://darkwebdev.github.com/baron/test/">Demo</a>
