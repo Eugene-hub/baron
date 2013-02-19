@@ -150,13 +150,14 @@
         event(scroller, 'scroll', this.updateScrollBar);
 
         // Resize
+        var that = this;
         event(window, 'resize', function () {
             // Если новый ресайз произошёл быстро - отменяем предыдущий таймаут
             clearTimeout(rTimer);
             // И навешиваем новый
             rTimer = setTimeout(function () {
-                this.viewport();
-                this.updateScrollBar();
+                that.viewport();
+                that.updateScrollBar();
                 barOn(container.offsetHeight > scroller.clientHeight);
             }, 200);
         });
