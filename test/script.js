@@ -1,12 +1,11 @@
 window.onload = function() {
-    var root;
 
     // Simple initialization with minimum parameters
     baron($('.test_simple'), {
         scroller: '.scroller',
         container: '.container',
         bar: '.scroller__bar',
-        barOnClass: 'scroller__bar_state_on'
+        barOnCls: 'scroller__bar_state_on'
     });
 
 
@@ -15,7 +14,7 @@ window.onload = function() {
         scroller: '.scroller',
         container: '.container',
         bar: '.scroller__bar',
-        barOnClass: 'scroller__bar_state_on',
+        barOnCls: 'scroller__bar_state_on',
         barTop: 36
     });
 
@@ -24,7 +23,16 @@ window.onload = function() {
         scroller: '.scroller',
         container: '.container',
         bar: '.scroller__bar',
-        barOnClass: 'scroller__bar_state_on',
+        barOnCls: 'scroller__bar_state_on',
+        viewMinH: 100
+    });
+
+    // Flexible height for bottom fixed headers -> they should change positions when window resize occurs.
+    baron($('.test_flex-headers'), {
+        scroller: '.scroller',
+        container: '.container',
+        bar: '.scroller__bar',
+        barOnCls: 'scroller__bar_state_on',
         viewMinH: 100
     });
 
@@ -35,7 +43,7 @@ window.onload = function() {
         scroller: '.scroller',
         container: '.container',
         bar: '.scroller__bar',
-        barOnClass: '.scroller__bar_state_on',
+        barOnCls: '.scroller__bar_state_on',
         barTop: 40,
         selector: qwery, // Selector engine
         event: function(elem, event, func, off) { // Events manager
