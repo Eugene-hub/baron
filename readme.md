@@ -1,3 +1,5 @@
+<h1>Deprecated! Since baron got plugins structure this fork is meaningless.</h1>
+
 Minimalistic (>1.5 kb minified, >0.7 kb gzipped) version of <a href="https://github.com/Diokuz/baron">Baron</a> custom scroll without accordeon headers support.
 
 <a href="http://darkwebdev.github.com/baron/test/">Demo</a>
